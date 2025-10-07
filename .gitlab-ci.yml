@@ -1,13 +1,13 @@
 
-#include:
-#  - template: Jobs/SAST.gitlab-ci.yml #semgrep tool
-#  - template: Jobs/SAST-IaC.gitlab-ci.yml #kicks tool
-#  - template: Jobs/Secret-Detection.gitlab-ci.yml #gitleaks
+include:
+  - template: Jobs/SAST.gitlab-ci.yml #semgrep tool
+  - template: Jobs/SAST-IaC.gitlab-ci.yml #kicks tool
+  - template: Jobs/Secret-Detection.gitlab-ci.yml #gitleaks
 
 
-#variables:
-#  GITLAB_ADVANCED_SAST_ENABLED: 'true'
-#  SECRET_DETECTION_HISTORIC_SCAN: "true"
+variables:
+  GITLAB_ADVANCED_SAST_ENABLED: 'true'
+  SECRET_DETECTION_HISTORIC_SCAN: "true"
 
 stages:
   - build
