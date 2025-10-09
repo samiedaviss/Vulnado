@@ -94,6 +94,6 @@ resource "aws_s3_bucket" "not-another-public-one-please" {
   }
 
   secrets = <<EOF
-  export AWS_ACCESS_KEY_ID=AKIASXANV8VXJI3CYJI3
+  export AWS_ACCESS_KEY_ID=*********
   EOF
 }
