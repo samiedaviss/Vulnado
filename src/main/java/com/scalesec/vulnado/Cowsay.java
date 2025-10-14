@@ -6,9 +6,8 @@ import java.io.InputStreamReader;
 public class Cowsay {
   public static String run(String input) {
     ProcessBuilder processBuilder = new ProcessBuilder();
-    String cmd = "/usr/games/cowsay '" + input + "'";
-    System.out.println(cmd);
-    processBuilder.command("bash", "-c", cmd);
+    // Use command list instead of string concatenation to prevent command injection
+    processBuilder.command("/usr/games/cowsay", input);
 
     StringBuilder output = new StringBuilder();
 
@@ -26,3 +25,4 @@ public class Cowsay {
     return output.toString();
   }
 }
+
