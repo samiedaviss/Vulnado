@@ -1,13 +1,14 @@
 package com.scalesec.vulnado;
-//change
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Cowsay {
   public static String run(String input) {
     ProcessBuilder processBuilder = new ProcessBuilder();
-    // Use command list instead of string concatenation to prevent command injection
-    processBuilder.command("/usr/games/cowsay", input);
+    String cmd = "/usr/games/cowsay '" + input + "'";
+    System.out.println(cmd);
+    processBuilder.command("bash", "-c", cmd);
 
     StringBuilder output = new StringBuilder();
 
@@ -25,4 +26,3 @@ public class Cowsay {
     return output.toString();
   }
 }
-
