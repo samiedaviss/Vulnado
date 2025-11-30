@@ -19,3 +19,4 @@ my_github_triggered_job:
     - echo "This job runs when triggered by GitHub changes."
   rules:   # Fixed: This was indented incorrectly
     - if: '$CI_PIPELINE_SOURCE == "trigger"'
+
