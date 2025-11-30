@@ -58,35 +58,31 @@ public class Postgres {
         }
     }
 
-    // Secure password hashing using PBKDF2
-    public static String hashPassword(String password)
+    // Java program to calculate MD5 hash value
+    public static String md5(String input)
     {
         try {
-            // Generate a random salt
-            byte[] salt = new byte[16];
-            java.security.SecureRandom random = new java.security.SecureRandom();
-            random.nextBytes(salt);
-            
-            // Use PBKDF2 with HMAC-SHA256, 65536 iterations, and 256-bit key
-            javax.crypto.spec.PBEKeySpec spec = new javax.crypto.spec.PBEKeySpec(
-                password.toCharArray(), salt, 65536, 256);
-            javax.crypto.SecretKeyFactory factory = javax.crypto.SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            byte[] hash = factory.generateSecret(spec).getEncoded();
-            
-            // Combine salt and hash, and convert to hex for storage
-            byte[] combined = new byte[salt.length + hash.length];
-            System.arraycopy(salt, 0, combined, 0, salt.length);
-            System.arraycopy(hash, 0, combined, salt.length, hash.length);
-            
-            // Convert to hex string
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : combined) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
+
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
             }
-            return hexString.toString();
-        } catch (Exception e) {
+            return hashtext;
+        }
+
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
@@ -119,4 +115,3 @@ public class Postgres {
         }
     }
 }
-
